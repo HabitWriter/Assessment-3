@@ -6,6 +6,16 @@
     
     <h1>Welcome, Dr. {{ drName }}</h1>
 
+    <form action="/like-fossil" method="post">
+      <p>Choose a fossil to like</p>
+      <select name="liked" id="likedField">
+        {% for fossil in fossils %}
+        <option value="{{ fossil.keyName }}">{{ fossil.name }}</option>
+        {% endfor %}
+      </select>
+      <input type="submit" value="Submit"/>
+    </form>
+
     {% for fossil in fossils %}  
     <div class="fossil-div">
       <h3>Dr. {{ drName }} this is a {{ fossil.name }}</h3>

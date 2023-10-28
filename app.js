@@ -60,6 +60,19 @@ const OTHER_FOSSILS = [
   },
 ];
 
+const newFossilData = MOST_LIKED_FOSSILS
+
+//trying to simplify the data here rather than edit the original data.
+let ind = 0
+for (let fossil in newFossilData) {
+  let keys = Object.keys(newFossilData)
+  // console.log(keys);
+  newFossilData[fossil].keyName = keys[ind]
+  ind++
+}
+
+// console.log(newFossilData);
+
 app.get('/', (req,res) => {
   if(req.session.name) {
     res.redirect('/top-fossils')
@@ -85,9 +98,13 @@ app.get('/get-name', (req, res) => {
 
   res.redirect('/top-fossils')
 
-  
+})
 
+app.post('/like-fossil',(req, res) => {
 
+  console.log(req.body.liked)
+
+  res.render('thank-you.html.njk')
 })
 
 app.get('/random-fossil.json', (req, res) => {
