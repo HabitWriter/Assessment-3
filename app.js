@@ -60,7 +60,36 @@ const OTHER_FOSSILS = [
   },
 ];
 
-// TODO: Replace this comment with your code
+app.get('/', (req,res) => {
+
+  res.render('homepage.html.njk')
+
+})
+
+app.get('/top-fossils', (req, res) => {
+
+  let nameVar = 'Jones'
+  if (req.session.name) {
+    nameVar = req.session.name
+  }
+  
+  console.log(req.session);
+  console.log('Hello world');
+
+  res.render('top-fossils.html.njk', { fossils: Object.values(MOST_LIKED_FOSSILS), drName : nameVar })
+
+})
+
+app.get('/get-name', (req, res) => {
+
+  req.session.name = req.query.name
+
+  res.redirect('/top-fossils')
+
+  
+
+
+})
 
 app.get('/random-fossil.json', (req, res) => {
   const randomFossil = lodash.sample(OTHER_FOSSILS);
