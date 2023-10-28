@@ -61,23 +61,22 @@ const OTHER_FOSSILS = [
 ];
 
 app.get('/', (req,res) => {
-
-  res.render('homepage.html.njk')
-
+  if(req.session.name) {
+    res.redirect('/top-fossils')
+  } else {
+    res.render('homepage.html.njk')
+  }
 })
 
 app.get('/top-fossils', (req, res) => {
 
-  let nameVar = 'Jones'
+  let nameVar
   if (req.session.name) {
     nameVar = req.session.name
+    res.render('top-fossils.html.njk', { fossils: Object.values(MOST_LIKED_FOSSILS), drName : nameVar })
+  } else {
+    res.redirect('/')
   }
-  
-  console.log(req.session);
-  console.log('Hello world');
-
-  res.render('top-fossils.html.njk', { fossils: Object.values(MOST_LIKED_FOSSILS), drName : nameVar })
-
 })
 
 app.get('/get-name', (req, res) => {
