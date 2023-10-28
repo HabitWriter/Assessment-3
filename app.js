@@ -62,7 +62,7 @@ const OTHER_FOSSILS = [
 
 const newFossilData = MOST_LIKED_FOSSILS
 
-//trying to simplify the data here rather than edit the original data.
+//trying to simplify the data.
 let ind = 0
 for (let fossil in newFossilData) {
   let keys = Object.keys(newFossilData)
@@ -71,7 +71,7 @@ for (let fossil in newFossilData) {
   ind++
 }
 
-// console.log(newFossilData);
+console.log(MOST_LIKED_FOSSILS);
 
 app.get('/', (req,res) => {
   if(req.session.name) {
@@ -103,8 +103,13 @@ app.get('/get-name', (req, res) => {
 app.post('/like-fossil',(req, res) => {
 
   console.log(req.body.liked)
+  let id = req.body.liked
+  MOST_LIKED_FOSSILS[id].num_likes++
+  console.log(MOST_LIKED_FOSSILS[id].num_likes)
 
-  res.render('thank-you.html.njk')
+  const nameVar = req.session.name
+
+  res.render('thank-you.html.njk',{drName : nameVar})
 })
 
 app.get('/random-fossil.json', (req, res) => {
